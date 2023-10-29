@@ -72,6 +72,11 @@ func SetupHandlers(r *gin.RouterGroup) {
 	m := NewSessionManager()
 
 	r.GET("/hubs/:id", func(c *gin.Context) {
+		// 记录访问者的IP和接口
+		ip := c.ClientIP()
+		interfaceName := "hubs"
+		log.Printf("Access from IP %s to /%s/%s", ip, interfaceName, c.Param("id"))
+
 		upgrader := websocket.Upgrader{
 			ReadBufferSize:  1024,
 			WriteBufferSize: 1024,
@@ -92,6 +97,11 @@ func SetupHandlers(r *gin.RouterGroup) {
 	})
 
 	r.Any("/proxy/:id/*proxyPath", func(c *gin.Context) {
+		// 记录访问者的IP和接口
+		ip := c.ClientIP()
+		interfaceName := "proxy"
+		log.Printf("Access from IP %s to /%s/%s%s", ip, interfaceName, c.Param("id"), c.Param("proxyPath"))
+
 		u, err := url.Parse("http://127.0.0.1")
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
@@ -129,6 +139,6 @@ func setupRouter() (*gin.Engine, error) {
 }
 
 func main() {
-	r,_ := setupRouter()
+	r, _ := setupRouter()
 	r.Run(":8081")
 }

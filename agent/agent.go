@@ -74,5 +74,5 @@ func Setup(connectURL string) error {
 }
 
 func main() {
-	Setup("121.37.9.9:8081")
+	Setup("121.37.9.9:8081/api/v1/proxy/1/*127.0.0.1:8881/hello")
 }
