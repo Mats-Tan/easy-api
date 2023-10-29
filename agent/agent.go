@@ -73,6 +73,14 @@ func Setup(connectURL string) error {
 	return nil
 }
 
+// http://192.168.247.102:8081/api/v1/proxy/myid/hello?x-proxy-host=10.202.81.9:8080&x-proxy-path=/hello
+
 func main() {
-	Setup("121.37.9.9:8081/api/v1/proxy/1/*127.0.0.1:8881/hello")
+	hubURL := "ws://121.37.9.9:8081/api/v1/hubs/myid"  // 替换成实际的Hub服务器URL
+    err := Setup(hubURL)
+    if err != nil {
+        log.Fatalf("Agent setup failed: %s", err)
+    }
+
+    // 这里可以添加其他应用程序逻辑
 }

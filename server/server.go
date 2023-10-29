@@ -7,10 +7,10 @@ import (
 )
 
 func main() {
-
+	port := "8080"
 	http.HandleFunc("/hello", HelloHandler)
-	fmt.Println("Server started at port 8881")
-	log.Fatal(http.ListenAndServe(":8881", nil))
+	fmt.Println("Server started at port " + port)
+	log.Fatal(http.ListenAndServe("10.202.81.9:"+port, nil))
 }
 
 func HelloHandler(w http.ResponseWriter, r *http.Request) {
